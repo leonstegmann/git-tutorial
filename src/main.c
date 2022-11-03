@@ -37,6 +37,9 @@
 #include "my_states.h"
 #include "states.h"
 
+int err_abort(int, char*);
+
+
 const char *argp_program_version = "1.0";
 const char *argp_program_bug_address = "alex.hoffman@tum.de";
 static char doc[] =
@@ -192,7 +195,7 @@ int main(int argc, char **argv) {
   create_timer(arguments.tick);
 
   error = pthread_mutex_lock(&mutex);
-  if (!error)
+  if (error != 0)
     err_abort(error, "Lock mutex");
 
   while (count < count_to) {
